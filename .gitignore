@@ -1,0 +1,13 @@
+target/
+.classpath
+.project
+.settings/
+*~
+gsx-natives.properties
+build/
+.gradle/
+bin/
+*.log
+.idea
+.vscode/
+*.iml

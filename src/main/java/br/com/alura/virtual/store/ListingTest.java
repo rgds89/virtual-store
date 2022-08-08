@@ -5,7 +5,8 @@ import java.sql.*;
 public class ListingTest {
 
     public static void main(String[] args) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/VIRTUAL_STORE?useTimezone=true&serverTimezone=UTC", "root", "Fpcci#2022");
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        Connection con = connectionFactory.returnConnection();
 
         Statement stm = con.createStatement();
         boolean result =  stm.execute("SELECT ID, NAME, DESCRIPTION FROM PRODUCT");

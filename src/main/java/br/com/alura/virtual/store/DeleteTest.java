@@ -19,7 +19,7 @@ public class DeleteTest {
 
         System.out.println("Linhas modificadas: " + modifiedRows);
 
-
+        stm.close();
         conn.close();
     }
 }

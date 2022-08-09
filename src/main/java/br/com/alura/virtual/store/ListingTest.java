@@ -28,6 +28,7 @@ public class ListingTest {
             System.out.println("Desc: " + desc);
         }
 
+        stm.close();
         con.close();
 
     }

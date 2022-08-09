@@ -1,16 +1,19 @@
 package br.com.alura.virtual.store;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DeleteTest {
     public static void main(String[] args) throws SQLException {
+        String sql = "DELETE FROM PRODUCT WHERE ID > ?";
+
         ConnectionFactory cf = new ConnectionFactory();
         Connection conn = cf.returnConnection();
 
-        Statement stm = conn.createStatement();
-        stm.execute("DELETE FROM PRODUCT WHERE ID > 2");
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, 2);
+        stm.execute();
 
         Integer modifiedRows = stm.getUpdateCount();
 

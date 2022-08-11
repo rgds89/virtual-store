@@ -8,21 +8,19 @@ public class InsertIntoWithParameterTest {
         String desc = "Mouse usb";
         String sql = "INSERT INTO PRODUCT (NAME, DESCRIPTION) VALUES (?, ?)";
         ConnectionFactory cf = new ConnectionFactory();
-        Connection conn = cf.returnConnection();
-        conn.setAutoCommit(false);
+        try (Connection conn = cf.returnConnection()) {
+            conn.setAutoCommit(false);
 
-        try {
-            PreparedStatement stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            addVariable("Smart TV", "45 Polegadas", stm);
-            addVariable("Home Theater", "Edifier modelo 2323", stm);
+            try (PreparedStatement stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
 
-            conn.commit();
+                addVariable("Smart TV", "45 Polegadas", stm);
+                addVariable("Home Theater", "Edifier modelo 2323", stm);
 
-            stm.close();
-            conn.close();
-        } catch (Exception e) {
-            conn.rollback();
-            throw new RuntimeException("Error preparing and inserting products");
+                conn.commit();
+            } catch (Exception e) {
+                conn.rollback();
+                throw new RuntimeException("Error preparing and inserting products");
+            }
         }
     }
 
@@ -31,10 +29,11 @@ public class InsertIntoWithParameterTest {
         stm.setString(2, desc);
         stm.execute();
 
-        ResultSet rst = stm.getGeneratedKeys();
-        while (rst.next()) {
-            Integer id = rst.getInt(1);
-            System.out.println("Id: " + id);
+        try (ResultSet rst = stm.getGeneratedKeys()) {
+            while (rst.next()) {
+                Integer id = rst.getInt(1);
+                System.out.println("Id: " + id);
+            }
         }
     }
 }

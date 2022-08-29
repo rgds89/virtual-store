@@ -15,6 +15,8 @@ public class ConnectionFactory {
         cpds.setUser("root");
         cpds.setPassword("Fpcci#2022");
 
+        cpds.setMaxStatements(15);
+
         this.dataSource = cpds;
     }
 

@@ -34,8 +34,14 @@ public class Product {
         this.description = desciption;
     }
 
+    public Product(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return String.format("O produto cadastrado foi: %d, %s, %s", this.id, this.name, this.description);
+        return String.format("O produto cadastrado é: %d, %s, %s", this.id, this.name, this.description);
     }
 }

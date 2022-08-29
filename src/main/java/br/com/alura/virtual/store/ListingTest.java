@@ -18,7 +18,7 @@ public class ListingTest {
         ResultSet resultSet = stm.getResultSet();
 
         while (resultSet.next()) {
-            Integer id = resultSet.getInt("ID");
+            int id = resultSet.getInt("ID");
             System.out.println("Id: " + id);
 
             String name = resultSet.getString("NAME");

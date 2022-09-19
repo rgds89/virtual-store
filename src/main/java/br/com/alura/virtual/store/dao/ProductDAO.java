@@ -1,5 +1,6 @@
 package br.com.alura.virtual.store.dao;
 
+import br.com.alura.virtual.store.modelo.Category;
 import br.com.alura.virtual.store.modelo.Product;
 
 import java.sql.*;
@@ -35,14 +36,35 @@ public class ProductDAO {
     public List<Product> list() {
         List<Product> products = new ArrayList<>();
 
-        String sql = "SELECT ID, NAME, DESCRIPTION FROM PRODUCT";
+        String sql = "SELECT ID, NAME, DESCRIPTION, CATEGORY_ID FROM PRODUCT";
 
         try (PreparedStatement pstm = connection.prepareStatement(sql)) {
             pstm.execute();
 
             try (ResultSet rst = pstm.getResultSet()) {
                 while (rst.next()) {
-                    Product product = new Product(rst.getInt(1), rst.getString(2), rst.getString(3));
+                    Product product = new Product(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getInt(4));
+                    products.add(product);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    }
+
+    public List<Product> getProductByCategory(Category ct) {
+        List<Product> products = new ArrayList<>();
+
+        String sql = "SELECT ID, NAME, DESCRIPTION, CATEGORY_ID FROM PRODUCT WHERE CATEGORY_ID = ?";
+
+        try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+            pstm.setInt(1,ct.getId() );
+            pstm.execute();
+
+            try (ResultSet rst = pstm.getResultSet()) {
+                while (rst.next()) {
+                    Product product = new Product(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getInt(4));
                     products.add(product);
                 }
             }

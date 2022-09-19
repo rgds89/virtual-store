@@ -5,6 +5,8 @@ public class Product {
     private String name;
     private String description;
 
+    private int category;
+
     public int getId() {
         return id;
     }
@@ -29,19 +31,29 @@ public class Product {
         this.description = description;
     }
 
-    public Product(String name, String desciption) {
-        this.name = name;
-        this.description = desciption;
+    public int getCategory() {
+        return category;
     }
 
-    public Product(int id, String name, String description) {
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public Product(String name, String desciption, int category) {
+        this.name = name;
+        this.description = desciption;
+        this.category = category;
+    }
+
+    public Product(int id, String name, String description, int category) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.category = category;
     }
 
     @Override
     public String toString() {
-        return String.format("O produto cadastrado é: %d, %s, %s", this.id, this.name, this.description);
+        return String.format("O produto cadastrado é: %d, %s, %s, %d", this.id, this.name, this.description, this.category);
     }
 }

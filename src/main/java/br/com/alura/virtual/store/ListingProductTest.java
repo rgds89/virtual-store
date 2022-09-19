@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListingTest {
+public class ListingProductTest {
     public static void main(String[] args) throws SQLException {
         List<Product> products = new ArrayList<>();
         try (Connection connection = new ConnectionFactory().returnConnection()) {

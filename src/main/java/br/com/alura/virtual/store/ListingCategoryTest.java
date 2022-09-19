@@ -1,7 +1,9 @@
 package br.com.alura.virtual.store;
 
 import br.com.alura.virtual.store.dao.CategoryDAO;
+import br.com.alura.virtual.store.dao.ProductDAO;
 import br.com.alura.virtual.store.modelo.Category;
+import br.com.alura.virtual.store.modelo.Product;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,7 +17,13 @@ public class ListingCategoryTest {
             CategoryDAO categoryDAO = new CategoryDAO(connection);
             categories = categoryDAO.list();
 
-            categories.stream().forEach(lc -> System.out.println(lc));
+            categories.stream().forEach(lc -> {
+                System.out.println(lc.getName());
+
+                for(Product product : new ProductDAO(connection).getProductByCategory(lc)){
+                    System.out.println(lc.getName() + " - " + product.getName());
+                }
+            });
         }
     }
 }
